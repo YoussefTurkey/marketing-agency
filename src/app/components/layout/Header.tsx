@@ -24,7 +24,7 @@ const Header = () => {
   return (
     <header>
       <section
-        className={`container mx-auto flex items-center justify-between w-[95%] xl:w-full px-10 py-5 fixed top-5 left-2.5 md:left-5 lg:left-6.5 xl:left-20 2xl:left-45 backdrop-blur-sm rounded-lg border-[1px] ${
+        className={`container mx-auto flex items-center justify-between w-[95%] xl:w-full px-10 py-5 fixed top-5 left-2.5 md:left-5 lg:left-6.5 xl:left-20 2xl:left-45 backdrop-blur-sm rounded-lg border-[1px] z-1000 ${
           theme === "dark"
             ? "border-[#ffffff30] bg-white/10"
             : "border-[#00000030] bg-black/5"
@@ -122,7 +122,7 @@ const Header = () => {
 
         <ul
           className={`
-              fixed top-0 h-[100vh] w-full md:w-100 z-100
+              fixed top-0 h-[100vh] w-full md:w-100 z-2000
               flex flex-col px-10 py-30 gap-5 lg:hidden
               backdrop-blur-sm rounded-lg border-[1px]
               transition-transform duration-500 ease-in-out
