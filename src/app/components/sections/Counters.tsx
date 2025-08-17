@@ -2,7 +2,7 @@
 // Importing Language Provider
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
 // Importing Components
-import CounterBox from "./CounterBox";
+import CounterBox from "../ui/CounterBox";
 
 const Counters = () => {
   const { language } = useLanguage();

@@ -25,7 +25,7 @@ const ScrollUp = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-15 md:bottom-6 z-1000 ${language === 'en' ? 'right-10' : 'left-10'} bg-[hsl(var(--secondary))] text-[hsl(var(--background))] p-3 rounded-full shadow-lg transition-opacity duration-300 cursor-pointer ${
+      className={`fixed bottom-15 md:bottom-6 z-1000 ${language === 'en' ? 'right-4 sm:right-10' : 'left-7 sm:left-10'} bg-[hsl(var(--secondary))] text-[hsl(var(--background))] p-3 rounded-full shadow-lg transition-opacity duration-300 cursor-pointer ${
         isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >

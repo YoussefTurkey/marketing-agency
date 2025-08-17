@@ -32,11 +32,21 @@ const CounterBox = ({ end, label }: { end: number; label: string }) => {
   return (
     <div
       ref={ref}
-      className={`flex flex-col items-center justify-center gap-5 w-full relative after:absolute ${language === 'en' ? 'after:left-43 md:after:left-50 xl:after:left-60' : 'after:right-43 md:after:right-50 xl:after:right-60'} after:w-px after:h-full after:bg-[hsl(var(--foreground))] last:after:hidden [&:nth-child(2)]:after:hidden lg:[&:nth-child(2)]:after:block`}
+      className={`flex flex-col items-center justify-center gap-5 w-full relative after:absolute ${
+        language === "en"
+          ? "after:left-43 md:after:left-50 xl:after:left-60"
+          : "after:right-43 md:after:right-50 xl:after:right-60"
+      } after:w-px after:h-full after:bg-[hsl(var(--foreground))] last:after:hidden [&:nth-child(2)]:after:hidden lg:[&:nth-child(2)]:after:block`}
     >
-      <h3 className="font-bold text-[hsl(var(--secondary))] text-3xl md:text-5xl">
-        +{startCount ? count.toLocaleString() : "0"}
-      </h3>
+      {language === "en" ? (
+        <h3 className="font-bold text-[hsl(var(--secondary))] text-3xl md:text-5xl">
+          +{startCount ? count.toLocaleString() : "0"}
+        </h3>
+      ) : (
+        <h3 className="font-bold text-[hsl(var(--secondary))] text-3xl md:text-5xl">
+          {startCount ? count.toLocaleString() : "0"}+
+        </h3>
+      )}
       <p className="text-xl">{label}</p>
     </div>
   );
