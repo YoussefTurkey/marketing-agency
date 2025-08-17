@@ -44,10 +44,10 @@ const OurProjects = () => {
   const { language } = useLanguage();
 
   return (
-    <section className="container mx-auto my-30">
-      <div className="flex items-center justify-between">
+    <section className="container mx-auto my-10 md:my-30 px-5 xl:px-0">
+      <div className="flex flex-col md:flex-row items-center justify-between">
         <Titles>{language === 'en' ? 'Our Projects' : 'أعمالنا'}</Titles>
-        <Buttons href="/">{language === 'en' ? 'See More' : 'شاهد المزيد'}</Buttons>
+        <Buttons style="hidden sm:flex" href="/">{language === 'en' ? 'See More' : 'شاهد المزيد'}</Buttons>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-0 xl:gap-10 justify-items-center">
@@ -76,6 +76,7 @@ const OurProjects = () => {
             </Link>
           </div>
         ))}
+        <Buttons style="flex sm:hidden px-25" href="/">{language === 'en' ? 'See More' : 'شاهد المزيد'}</Buttons>
       </div>
     </section>
   );

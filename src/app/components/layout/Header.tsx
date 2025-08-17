@@ -98,7 +98,7 @@ const Header = () => {
         <div className="flex items-center gap-2 md:gap-5">
           <LanguageToggle />
           <ThemeToggle />
-          <Buttons href="/">
+          <Buttons style="hidden sm:flex" href="/">
             {language === "en" ? "get in touch" : "تواصل معنا"}
           </Buttons>
           <button className="flex lg:hidden" onClick={() => setMenu(!menu)}>
