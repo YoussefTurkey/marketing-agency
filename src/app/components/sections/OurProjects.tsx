@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 // Importing Language Provider
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
+// Importing Components
 import Titles from "../ui/Titles";
 import Buttons from "../ui/Buttons";
 
