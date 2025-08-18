@@ -9,7 +9,7 @@ const Counters = () => {
 
   return (
     <section
-      className="flex items-center justify-center my-20"
+      className="flex items-center justify-center py-20"
       id="services"
     >
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 xl:gap-30 items-center justify-items-center text-center">
