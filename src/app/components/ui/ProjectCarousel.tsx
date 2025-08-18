@@ -105,7 +105,7 @@ export default function ProjectCarousel({
       >
         {project.map((card) => (
           <SwiperSlide key={card.id}>
-            <div className="relative w-70 sm:w-90 lg:w-60 h-80 xl:w-80 xl:h-100 2xl:w-90 2xl:h-120 rounded-2xl overflow-hidden shadow-lg group">
+            <div className="relative w-full sm:w-90 lg:w-60 h-80 xl:w-80 xl:h-100 2xl:w-90 2xl:h-120 rounded-2xl overflow-hidden shadow-lg group">
               <Image
                 src={card.src}
                 alt={card.alt}

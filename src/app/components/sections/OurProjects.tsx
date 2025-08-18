@@ -20,7 +20,7 @@ const OurProjects = () => {
 
       <div>
         <ProjectCarousel />
-        <Buttons style="flex sm:hidden px-25" href="/">
+        <Buttons style="flex sm:hidden justify-center" href="/">
           {language === "en" ? "See More" : "شاهد المزيد"}
         </Buttons>
       </div>
