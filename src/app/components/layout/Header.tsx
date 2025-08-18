@@ -32,31 +32,33 @@ const Header = () => {
       >
         <div className="flex items-center gap-10">
           {/* logo */}
-          {language === "en" ? (
-            <Image
-              src={
-                theme === "dark"
-                  ? "/images/logo-dark.webp"
-                  : "/images/logo.webp"
-              }
-              width={150}
-              height={150}
-              alt="logo"
-              loading="lazy"
-            />
-          ) : (
-            <Image
-              src={
-                theme === "dark"
-                  ? "/images/logoAr-dark.webp"
-                  : "/images/logoAr.webp"
-              }
-              width={150}
-              height={150}
-              alt="logo"
-              loading="lazy"
-            />
-          )}
+          <Link href={"/"}>
+            {language === "en" ? (
+              <Image
+                src={
+                  theme === "dark"
+                    ? "/images/logo-dark.webp"
+                    : "/images/logo.webp"
+                }
+                width={150}
+                height={150}
+                alt="logo"
+                loading="lazy"
+              />
+            ) : (
+              <Image
+                src={
+                  theme === "dark"
+                    ? "/images/logoAr-dark.webp"
+                    : "/images/logoAr.webp"
+                }
+                width={150}
+                height={150}
+                alt="logo"
+                loading="lazy"
+              />
+            )}
+          </Link>
 
           {/* Links */}
           <ul className="hidden lg:flex items-center gap-10">
@@ -78,7 +80,7 @@ const Header = () => {
             </li>
             <li className="group">
               <Link
-                href={"/"}
+                href={"#testimonials"}
                 className="group-hover:text-[hsl(var(--secondary))]"
               >
                 {language === "en" ? "Testimionals" : "قصص النجاح"}
@@ -86,7 +88,7 @@ const Header = () => {
             </li>
             <li className="group">
               <Link
-                href={"/"}
+                href={"#faqs"}
                 className="group-hover:text-[hsl(var(--secondary))]"
               >
                 {language === "en" ? "FAQs" : "الأسئلة الشائعة"}
@@ -112,10 +114,10 @@ const Header = () => {
         <div
           onClick={() => setMenu(false)}
           className={`fixed inset-0 ${
-                theme === "dark"
-                  ? "border-[#ffffff30] bg-black/30"
-                  : "border-[#00000030] bg-white/30"
-              } transition-opacity duration-500
+            theme === "dark"
+              ? "border-[#ffffff30] bg-black/30"
+              : "border-[#00000030] bg-white/30"
+          } transition-opacity duration-500
             ${menu ? "opacity-100 visible" : "opacity-0 invisible"}
           `}
         />
