@@ -8,9 +8,8 @@ import { useLanguage } from "@/app/lib/lang/LanguageProvider";
 import { useEffect, useState } from "react";
 // Importing Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
 
 type IProject = {
   id: number;
@@ -87,8 +86,7 @@ export default function ProjectCarousel({
       className="w-full container mx-auto py-10 relative cursor-grab"
     >
       <Swiper
-        modules={[Navigation, Autoplay]} // ✅ أضفنا Autoplay هنا
-        navigation
+        modules={[Autoplay]} // ✅ أضفنا Autoplay هنا
         loop={true}
         spaceBetween={30}
         slidesPerView={1}
