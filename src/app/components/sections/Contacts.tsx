@@ -1,19 +1,52 @@
 "use client";
+// Importing Next Components
 import Link from "next/link";
+// Importing Language Provider
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
+// Importing Components
 import Titles from "../ui/Titles";
+// Importing React-Icons
 import { RiWhatsappFill } from "react-icons/ri";
 import { FaEnvelope } from "react-icons/fa";
 import { IoCall } from "react-icons/io5";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { registerSchema, TRegist } from "@/app/lib/validations/validContact";
 import { zodResolver } from "@hookform/resolvers/zod";
+// Importing EmailJS
 import emailjs from "@emailjs/browser";
-import { useState } from "react";
+// Framer Motion
+import { motion } from "framer-motion";
+// React hooks
+import { useEffect, useRef, useState } from "react";
 
 const Contacts = () => {
   const { language } = useLanguage();
   const [loading, setLoading] = useState(false);
+
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setInView(true);
+            observer.disconnect(); // once animated, stop observing
+          }
+        });
+      },
+      { threshold: 0.2 } // 20% visible
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) observer.unobserve(ref.current);
+    };
+  }, []);
 
   const {
     handleSubmit,
@@ -38,23 +71,42 @@ const Contacts = () => {
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
-      alert(language === "en" ? "Message sent successfully 🎉" : "تم إرسال الرسالة بنجاح 🎉");
+      alert(
+        language === "en"
+          ? "Message sent successfully 🎉"
+          : "تم إرسال الرسالة بنجاح 🎉"
+      );
       reset();
     } catch (error) {
       console.error(error);
-      alert(language === "en" ? "❌ Failed to send message" : "❌ فشل إرسال الرسالة");
+      alert(
+        language === "en" ? "❌ Failed to send message" : "❌ فشل إرسال الرسالة"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="container mx-auto my-10 md:my-30 px-5 xl:px-0">
-      <div className="flex flex-col md:flex-row items-center justify-between">
+    <section
+      ref={ref}
+      className="container mx-auto my-10 md:my-30 px-5 xl:px-0"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="flex flex-col md:flex-row items-center justify-between"
+      >
         <Titles>{language === "en" ? "Contact Us" : "تواصل معنا"}</Titles>
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col md:flex-row gap-0 md:gap-10">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="flex flex-col md:flex-row gap-0 md:gap-10"
+      >
         <form className="my-5 w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col w-full my-3">
             <label htmlFor="phone" className="text-xl cursor-pointer">
@@ -73,7 +125,9 @@ const Contacts = () => {
                language === "en" ? "text-left" : "text-right"
              }`}
             />
-            {errors.phone && <span className="text-red-500 py-1">{errors.phone.message}</span>}
+            {errors.phone && (
+              <span className="text-red-500 py-1">{errors.phone.message}</span>
+            )}
           </div>
 
           <div className="flex flex-col w-full my-3">
@@ -91,7 +145,9 @@ const Contacts = () => {
              focus:ring-2 focus:ring-[hsl(var(--secondary))]
              focus:outline-none transition-colors"
             />
-            {errors.email && <span className="text-red-500 py-1">{errors.email.message}</span>}
+            {errors.email && (
+              <span className="text-red-500 py-1">{errors.email.message}</span>
+            )}
           </div>
 
           <div className="flex flex-col w-full my-3">
@@ -110,7 +166,9 @@ const Contacts = () => {
              focus:outline-none transition-colors"
               placeholder={language === "en" ? "Your message" : "رسالتك"}
             ></textarea>
-            {errors.msg && <span className="text-red-500 py-1">{errors.msg.message}</span>}
+            {errors.msg && (
+              <span className="text-red-500 py-1">{errors.msg.message}</span>
+            )}
           </div>
 
           <button
@@ -137,7 +195,11 @@ const Contacts = () => {
             <span>
               <RiWhatsappFill size={30} />
             </span>
-            <span>{language === "en" ? "Keep in touch on Whatsapp" : "تواصل معنا عبر الواتساب"}</span>
+            <span>
+              {language === "en"
+                ? "Keep in touch on Whatsapp"
+                : "تواصل معنا عبر الواتساب"}
+            </span>
           </Link>
 
           <Link
@@ -147,7 +209,11 @@ const Contacts = () => {
             <span>
               <FaEnvelope size={30} />
             </span>
-            <span>{language === "en" ? "Keep in touch on Mail" : "تواصل معنا عبر البريد الإلكتروني"}</span>
+            <span>
+              {language === "en"
+                ? "Keep in touch on Mail"
+                : "تواصل معنا عبر البريد الإلكتروني"}
+            </span>
           </Link>
 
           <div className="flex gap-5 items-center p-10 rounded-xl border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-[hsl(var(--background))] transition-all">
@@ -161,7 +227,7 @@ const Contacts = () => {
             </span>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -62,7 +62,7 @@ const Header = () => {
           <ul className="hidden lg:flex items-center gap-10">
             <li className="group">
               <Link
-                href={"/"}
+                href={"#projects"}
                 className="group-hover:text-[hsl(var(--secondary))]"
               >
                 {language === "en" ? "Our Projects" : "أعمالنا"}
@@ -70,7 +70,7 @@ const Header = () => {
             </li>
             <li className="group">
               <Link
-                href={"/"}
+                href={"#teams"}
                 className="group-hover:text-[hsl(var(--secondary))]"
               >
                 {language === "en" ? "Our Team" : "الفريق"}
