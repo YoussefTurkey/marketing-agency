@@ -52,7 +52,7 @@ const Testimonials = () => {
         <Titles>
           {language === "en"
             ? "Client Success, Our Priority"
-            : "نجاح عميلنا هو أولويتنا"}
+            : "نجاح عميلنا هو أولويــــــــــــــــــتنا"}
         </Titles>
       </motion.div>
 
