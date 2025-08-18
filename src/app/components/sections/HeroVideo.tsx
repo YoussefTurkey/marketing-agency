@@ -34,10 +34,10 @@ const HeroVideo: React.FC = () => {
         ></div>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full h-100 bg-gradient-to-t from-[hsl(var(--background))] to-transparent">
+      <div className="absolute bottom-0 left-0 w-full pb-10 pt-40 bg-gradient-to-t from-[hsl(var(--background))] to-transparent">
         <Link
           href="#services"
-          className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+          className="flex flex-col items-center"
         >
           <p className="text-lg">Explore Services</p>
           <span>
