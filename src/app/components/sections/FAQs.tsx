@@ -117,7 +117,7 @@ const FAQs = () => {
             className="cursor-pointer border border-[hsl(var(--foreground))] rounded-2xl shadow-lg p-10 my-5"
           >
             <div className="flex items-center justify-between">
-              <p className="font-bold text-lg">
+              <p className="font-bold text-lg w-50 sm:w-full text-[hsl(var(--secondary))]">
                 {language === "en" ? quest.titleEn : quest.titleAr}
               </p>
               <span className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer transition-all">
