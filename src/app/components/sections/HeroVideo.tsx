@@ -14,7 +14,7 @@ const HeroVideo: React.FC = () => {
       <div className="relative w-full h-screen overflow-hidden -z-100">
         {/* Video Background */}
         <video
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute top-0 left-0 w-full h-screen object-cover"
           autoPlay
           loop
           muted
