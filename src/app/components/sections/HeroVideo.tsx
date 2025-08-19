@@ -1,12 +1,15 @@
 "use client";
 // Importing Next Components
 import Link from "next/link";
-// Importing Language Provider
+// Importing Theme Provider
 import { useTheme } from "@/app/lib/theme/ThemeProvider";
+// Importing Language Provider
+import { useLanguage } from "@/app/lib/lang/LanguageProvider";
 // Importing React-Icons
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 
 const HeroVideo: React.FC = () => {
+  const { language } = useLanguage();
   const { theme } = useTheme();
 
   return (
@@ -35,11 +38,10 @@ const HeroVideo: React.FC = () => {
       </div>
 
       <div className="absolute bottom-0 left-0 w-full pb-10 pt-40 bg-gradient-to-t from-[hsl(var(--background))] to-transparent">
-        <Link
-          href="#services"
-          className="flex flex-col items-center"
-        >
-          <p className="text-lg">Explore Services</p>
+        <Link href="#services" className="flex flex-col items-center">
+          <p className="text-lg">
+            {language === "en" ? "Explore Services" : "اكتشف خدامتنا"}
+          </p>
           <span>
             <MdKeyboardDoubleArrowDown size={30} />
           </span>
