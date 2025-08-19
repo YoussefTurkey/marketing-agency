@@ -62,6 +62,9 @@ const OurTeam = () => {
         transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
       >
         <TeamCarousel />
+        <Buttons style="flex sm:hidden justify-center" href="/teams">
+          {language === "en" ? "See More" : "شاهد المزيد"}
+        </Buttons>
       </motion.div>
     </section>
   );
