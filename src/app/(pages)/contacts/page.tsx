@@ -4,7 +4,7 @@ import Link from "next/link";
 // Importing Language Provider
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
 // Importing Components
-import Titles from "../ui/Titles";
+import Titles from "@/app/components/ui/Titles";
 // Importing React-Icons
 import { RiWhatsappFill } from "react-icons/ri";
 import { FaEnvelope } from "react-icons/fa";
@@ -88,10 +88,7 @@ const Contacts = () => {
   };
 
   return (
-    <section
-      ref={ref}
-      className="container mx-auto my-10 md:my-30 px-5 xl:px-0"
-    >
+    <main ref={ref} className="container mx-auto my-30 px-5 xl:px-0">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -230,7 +227,7 @@ const Contacts = () => {
           </div>
         </div>
       </motion.div>
-    </section>
+    </main>
   );
 };
 

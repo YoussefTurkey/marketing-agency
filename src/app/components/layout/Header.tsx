@@ -68,7 +68,7 @@ const Header = () => {
         <div className="flex items-center gap-2 md:gap-5">
           <LanguageToggle />
           <ThemeToggle />
-          <Buttons style="hidden sm:flex" href="/">
+          <Buttons style="hidden sm:flex" href="/contacts">
             {language === "en" ? "get in touch" : "تواصل معنا"}
           </Buttons>
           <button className="flex lg:hidden" onClick={() => setMenu(!menu)}>
@@ -141,7 +141,7 @@ const Header = () => {
           </li>
           <li className="group border-b-1 pb-5">
             <Link
-              href={"/"}
+              href={"/contacts"}
               onClick={() => setMenu(false)}
               className="group-hover:text-[hsl(var(--secondary))] text-3xl"
             >

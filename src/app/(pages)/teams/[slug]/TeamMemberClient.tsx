@@ -42,7 +42,7 @@ export default function TeamMemberClient({ member }: { member: ITeam }) {
   return (
     <section
       ref={ref}
-      className="container mx-auto my-10 md:my-30 px-5 xl:px-0"
+      className="container mx-auto my-30 px-5 xl:px-0"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -60,7 +60,7 @@ export default function TeamMemberClient({ member }: { member: ITeam }) {
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className=""
+        className="flex flex-col items-center sm:items-start"
       >
         <Image
           src={member.image}
@@ -72,12 +72,12 @@ export default function TeamMemberClient({ member }: { member: ITeam }) {
         />
         {language === "en"
           ? member.bioEn.map((line, idx) => (
-              <p key={idx} className="leading-relaxed">
+              <p key={idx} className="leading-relaxed text-left w-75 sm:w-full">
                 {line}
               </p>
             ))
           : member.bioAr.map((line, idx) => (
-              <p key={idx} className="leading-relaxed">
+              <p key={idx} className="leading-relaxed text-right w-75 sm:w-full">
                 {line}
               </p>
             ))}

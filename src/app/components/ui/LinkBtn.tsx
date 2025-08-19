@@ -16,14 +16,14 @@ const LinkBtn = () => {
       }`}
     >
       <Link
-        href={"/"}
+        href={"https://wa.me/+201273451052"}
         target="_blank"
         className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer transition-all"
       >
         <RiWhatsappFill size={20} />
       </Link>
       <Link
-        href={"/"}
+        href={"mailto:you.turkey11@gmail.com"}
         target="_blank"
         className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer transition-all"
       >
