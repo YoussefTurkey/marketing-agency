@@ -9,15 +9,9 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 // Importing React-Icons
 import { IoIosArrowDown } from "react-icons/io";
-import { IoIosArrowUp } from "react-icons/io";
-
-type IFAQ = {
-  id: number;
-  titleAr: string;
-  titleEn: string;
-  descAr: string;
-  descEn: string;
-};
+import { GoDash } from "react-icons/go";
+// Importing data
+import { faq } from "@/app/data/database";
 
 const FAQs = () => {
   const { language } = useLanguage();
@@ -48,45 +42,7 @@ const FAQs = () => {
     };
   }, []);
 
-  const faq: IFAQ[] = [
-    {
-      id: 1,
-      titleAr: "كم سنة من الخبرة لديك؟",
-      titleEn: "How many years of experience do you have?",
-      descAr:
-        "انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، ",
-      descEn:
-        "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
-    },
-    {
-      id: 2,
-      titleAr: "كم سنة من الخبرة لديك؟",
-      titleEn: "How many years of experience do you have?",
-      descAr:
-        "انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، ",
-      descEn:
-        "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
-    },
-    {
-      id: 3,
-      titleAr: "كم سنة من الخبرة لديك؟",
-      titleEn: "How many years of experience do you have?",
-      descAr:
-        "انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، ",
-      descEn:
-        "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
-    },
-    {
-      id: 4,
-      titleAr: "كم سنة من الخبرة لديك؟",
-      titleEn: "How many years of experience do you have?",
-      descAr:
-        "انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، ",
-      descEn:
-        "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
-    },
-  ];
-
+  
   return (
     <section
       ref={ref}
@@ -122,7 +78,7 @@ const FAQs = () => {
               </p>
               <span className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer transition-all">
                 {openFAQ === quest.id ? (
-                  <IoIosArrowUp size={20} />
+                  <GoDash size={20} />
                 ) : (
                   <IoIosArrowDown size={20} />
                 )}

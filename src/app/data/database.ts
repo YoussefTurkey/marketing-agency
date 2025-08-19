@@ -289,3 +289,50 @@ export const testi: ITesti[] = [
       "Thank You for your service. I am very pleased with the result. I have seen exponencial growth in my business and its all thanks to your amazing service",
   },
 ];
+
+// FAQs
+type IFAQ = {
+  id: number;
+  titleAr: string;
+  titleEn: string;
+  descAr: string;
+  descEn: string;
+};
+export const faq: IFAQ[] = [
+    {
+      id: 1,
+      titleAr: "كم سنة من الخبرة لديك؟",
+      titleEn: "How many years of experience do you have?",
+      descAr:
+        "انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، ",
+      descEn:
+        "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
+    },
+    {
+      id: 2,
+      titleAr: "كم سنة من الخبرة لديك؟",
+      titleEn: "How many years of experience do you have?",
+      descAr:
+        "انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، ",
+      descEn:
+        "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
+    },
+    {
+      id: 3,
+      titleAr: "كم سنة من الخبرة لديك؟",
+      titleEn: "How many years of experience do you have?",
+      descAr:
+        "انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، ",
+      descEn:
+        "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
+    },
+    {
+      id: 4,
+      titleAr: "كم سنة من الخبرة لديك؟",
+      titleEn: "How many years of experience do you have?",
+      descAr:
+        "انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، انا عاوز اكتب كلام عربي، ",
+      descEn:
+        "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
+    },
+  ];
