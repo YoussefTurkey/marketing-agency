@@ -10,63 +10,8 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-
-type IProject = {
-  id: number;
-  src: string;
-  alt: string;
-  link: string;
-};
-const project: IProject[] = [
-  {
-    id: 1,
-    src: "/images/project1.webp",
-    alt: "project-01",
-    link: "/",
-  },
-  {
-    id: 2,
-    src: "/images/project2.webp",
-    alt: "project-02",
-    link: "/",
-  },
-  {
-    id: 3,
-    src: "/images/project3.webp",
-    alt: "project-03",
-    link: "/",
-  },
-  {
-    id: 4,
-    src: "/images/project4.webp",
-    alt: "project-04",
-    link: "/",
-  },
-  {
-    id: 5,
-    src: "/images/project1.webp",
-    alt: "project-05",
-    link: "/",
-  },
-  {
-    id: 6,
-    src: "/images/project2.webp",
-    alt: "project-06",
-    link: "/",
-  },
-  {
-    id: 7,
-    src: "/images/project3.webp",
-    alt: "project-07",
-    link: "/",
-  },
-  {
-    id: 8,
-    src: "/images/project4.webp",
-    alt: "project-08",
-    link: "/",
-  },
-];
+// Importing data
+import { project } from "@/app/data/database";
 
 export default function ProjectCarousel({
   lang = "en",
@@ -101,12 +46,12 @@ export default function ProjectCarousel({
         }}
         dir={dir}
       >
-        {project.map((card) => (
-          <SwiperSlide key={card.id}>
+        {project.map((proj) => (
+          <SwiperSlide key={proj.id}>
             <div className="relative w-full sm:w-90 lg:w-60 h-80 xl:w-80 xl:h-100 2xl:w-90 2xl:h-120 rounded-2xl overflow-hidden shadow-lg group">
               <Image
-                src={card.src}
-                alt={card.alt}
+                src={proj.src}
+                alt={proj.alt}
                 width={1000}
                 height={1000}
                 loading="lazy"
@@ -114,7 +59,7 @@ export default function ProjectCarousel({
               />
 
               <Link
-                href={card.link}
+                href={proj.link}
                 role="button"
                 className={`absolute bottom-5 ${
                   language === "en" ? "right-5" : "left-5"

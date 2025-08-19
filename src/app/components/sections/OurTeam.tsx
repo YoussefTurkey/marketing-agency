@@ -51,7 +51,7 @@ const OurTeam = () => {
         className="flex flex-col md:flex-row items-center justify-between"
       >
         <Titles>{language === "en" ? "Our Team" : "فريقنا"}</Titles>
-        <Buttons style="hidden sm:flex" href="/">
+        <Buttons style="hidden sm:flex" href="/teams">
           {language === "en" ? "See More" : "شاهد المزيد"}
         </Buttons>
       </motion.div>

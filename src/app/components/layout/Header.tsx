@@ -11,6 +11,7 @@ import { useState } from "react";
 import LanguageToggle from "@/app/lib/lang/LanguageToggle";
 import ThemeToggle from "@/app/lib/theme/ThemeToggle";
 import Buttons from "../ui/Buttons";
+import Navbar from "../ui/HeaderLinks";
 // Importing React-Icons
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
@@ -61,40 +62,7 @@ const Header = () => {
           </Link>
 
           {/* Links */}
-          <ul className="hidden lg:flex items-center gap-10">
-            <li className="group">
-              <Link
-                href={"#projects"}
-                className="group-hover:text-[hsl(var(--secondary))]"
-              >
-                {language === "en" ? "Our Projects" : "أعمالنا"}
-              </Link>
-            </li>
-            <li className="group">
-              <Link
-                href={"#teams"}
-                className="group-hover:text-[hsl(var(--secondary))]"
-              >
-                {language === "en" ? "Our Team" : "الفريق"}
-              </Link>
-            </li>
-            <li className="group">
-              <Link
-                href={"#testimonials"}
-                className="group-hover:text-[hsl(var(--secondary))]"
-              >
-                {language === "en" ? "Testimionals" : "قصص النجاح"}
-              </Link>
-            </li>
-            <li className="group">
-              <Link
-                href={"#faqs"}
-                className="group-hover:text-[hsl(var(--secondary))]"
-              >
-                {language === "en" ? "FAQs" : "الأسئلة الشائعة"}
-              </Link>
-            </li>
-          </ul>
+          <Navbar language={language} />
         </div>
 
         <div className="flex items-center gap-2 md:gap-5">
@@ -155,7 +123,7 @@ const Header = () => {
 
           <li className="group border-t-1 border-b-1 py-5">
             <Link
-              href={"/"}
+              href={"/projects"}
               onClick={() => setMenu(false)}
               className="group-hover:text-[hsl(var(--secondary))] text-3xl"
             >
@@ -164,7 +132,7 @@ const Header = () => {
           </li>
           <li className="group border-b-1 pb-5">
             <Link
-              href={"/"}
+              href={"/teams"}
               onClick={() => setMenu(false)}
               className="group-hover:text-[hsl(var(--secondary))] text-3xl"
             >
@@ -177,16 +145,7 @@ const Header = () => {
               onClick={() => setMenu(false)}
               className="group-hover:text-[hsl(var(--secondary))] text-3xl"
             >
-              {language === "en" ? "Testimionals" : "قصص النجاح"}
-            </Link>
-          </li>
-          <li className="group border-b-1 pb-5">
-            <Link
-              href={"/"}
-              onClick={() => setMenu(false)}
-              className="group-hover:text-[hsl(var(--secondary))] text-3xl"
-            >
-              {language === "en" ? "FAQs" : "الأسئلة الشائعة"}
+              {language === "en" ? "Contact Us" : "تواصل معنا"}
             </Link>
           </li>
         </ul>

@@ -10,22 +10,8 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules"; // ✅ أضفنا Autoplay
 import "swiper/css";
-
-type Card = {
-  id: number;
-  name: string;
-  image: string;
-  link: string;
-};
-
-const cards: Card[] = [
-  { id: 1, name: "Person 1", image: "/images/person.webp", link: "/" },
-  { id: 2, name: "Person 2", image: "/images/person2.webp", link: "/" },
-  { id: 3, name: "Person 3", image: "/images/person.webp", link: "/" },
-  { id: 4, name: "Person 4", image: "/images/person2.webp", link: "/" },
-  { id: 5, name: "Person 5", image: "/images/person.webp", link: "/" },
-  { id: 6, name: "Person 6", image: "/images/person2.webp", link: "/" },
-];
+// Importing data
+import { teams } from "@/app/data/database";
 
 export default function ProjectCarousel({
   lang = "en",
@@ -60,20 +46,20 @@ export default function ProjectCarousel({
         }}
         dir={dir}
       >
-        {cards.map((card) => (
-          <SwiperSlide key={card.id}>
+        {teams.map((person) => (
+          <SwiperSlide key={person.id}>
             <div className="relative rounded-2xl overflow-hidden shadow-lg group">
               <Image
-                src={card.image}
+                src={person.image}
                 width={1000}
                 height={1000}
-                alt={card.name}
+                alt={language === 'en' ? person.nameEn : person.nameAr}
                 loading="lazy"
                 className="w-full h-170 object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 flex items-end justify-between p-4 bg-gradient-to-t from-black/50 to-transparent">
                 <Link
-                  href={card.link}
+                  href={person.link}
                   role="button"
                   className="bg-[hsl(var(--secondary))] text-[hsl(var(--background))] px-4 py-2 rounded-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300"
                 >
@@ -81,7 +67,7 @@ export default function ProjectCarousel({
                 </Link>
 
                 <p className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 text-white">
-                  {card.name}
+                  {language === 'en' ? person.nameEn : person.nameAr}
                 </p>
               </div>
             </div>

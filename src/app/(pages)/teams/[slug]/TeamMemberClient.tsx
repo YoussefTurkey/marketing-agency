@@ -1,16 +1,17 @@
 "use client";
+// Importing Next Components
+import Image from "next/image";
 // Importing Language Provider
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
-// Importing Components
-import Titles from "../ui/Titles";
-import Buttons from "../ui/Buttons";
-import ProjectCarousel from "../ui/ProjectCarousel";
+// Importing type of data
+import type { ITeam } from "@/app/data/database";
 // Framer Motion
 import { motion } from "framer-motion";
 // React hooks
 import { useEffect, useRef, useState } from "react";
+import Titles from "@/app/components/ui/Titles";
 
-const OurProjects = () => {
+export default function TeamMemberClient({ member }: { member: ITeam }) {
   const { language } = useLanguage();
 
   const ref = useRef<HTMLDivElement | null>(null);
@@ -42,7 +43,6 @@ const OurProjects = () => {
     <section
       ref={ref}
       className="container mx-auto my-10 md:my-30 px-5 xl:px-0"
-      id="projects"
     >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -50,24 +50,38 @@ const OurProjects = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="flex flex-col md:flex-row items-center justify-between"
       >
-        <Titles>{language === "en" ? "Our Projects" : "أعمالنا"}</Titles>
-        <Buttons style="hidden sm:flex" href="/projects">
-          {language === "en" ? "See More" : "شاهد المزيد"}
-        </Buttons>
+        <Titles>{language === "en" ? member.nameEn : member.nameAr}</Titles>
+        <p className="text-lg text-[hsl(var(--secondary))] mb-5">
+          {language === "en" ? member.roleEn : member.roleAr}
+        </p>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className=""
       >
-        <ProjectCarousel />
-        <Buttons style="flex sm:hidden justify-center" href="/projects">
-          {language === "en" ? "See More" : "شاهد المزيد"}
-        </Buttons>
+        <Image
+          src={member.image}
+          alt={language === "en" ? member.nameEn : member.nameAr}
+          width={1000}
+          height={1000}
+          loading="lazy"
+          className="w-64 h-64 object-cover rounded-full shadow-lg mb-5"
+        />
+        {language === "en"
+          ? member.bioEn.map((line, idx) => (
+              <p key={idx} className="leading-relaxed">
+                {line}
+              </p>
+            ))
+          : member.bioAr.map((line, idx) => (
+              <p key={idx} className="leading-relaxed">
+                {line}
+              </p>
+            ))}
       </motion.div>
     </section>
   );
-};
-
-export default OurProjects;
+}

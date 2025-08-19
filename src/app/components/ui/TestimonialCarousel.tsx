@@ -9,17 +9,8 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-
-type ITesti = {
-  id: number;
-  src: string;
-  nameAr: string;
-  nameEn: string;
-  titleAr: string;
-  titleEn: string;
-  messageAr: string;
-  messageEn: string;
-};
+// Importing data
+import { testi } from "@/app/data/database";
 
 export default function TestimonialCarousel({
   lang = "en",
@@ -28,69 +19,6 @@ export default function TestimonialCarousel({
 }) {
   const { language } = useLanguage();
   const [dir, setDir] = useState<"ltr" | "rtl">("ltr");
-
-  const testi: ITesti[] = [
-    {
-      id: 1,
-      src: "/images/ceo.webp",
-      nameAr: "إيميلي ستونس",
-      nameEn: "Emily Stones",
-      titleAr: "المدير التنفيذي لشركة جورو التسويقية",
-      titleEn: "CEO, Marketing Guru",
-      messageAr:
-        "شكرًا لخدمتكم. أنا سعيد جدًا بالنتيجة. لقد شهدتُ نموًا هائلًا في أعمالي، وكل ذلك بفضل خدمتكم الرائعة.",
-      messageEn:
-        "Thank You for your service. I am very pleased with the result. I have seen exponencial growth in my business and its all thanks to your amazing service",
-    },
-    {
-      id: 2,
-      src: "/images/ceo.webp",
-      nameAr: "إيميلي ستونس",
-      nameEn: "Emily Stones",
-      titleAr: "المدير التنفيذي لشركة جورو التسويقية",
-      titleEn: "CEO, Marketing Guru",
-      messageAr:
-        "شكرًا لخدمتكم. أنا سعيد جدًا بالنتيجة. لقد شهدتُ نموًا هائلًا في أعمالي، وكل ذلك بفضل خدمتكم الرائعة.",
-      messageEn:
-        "Thank You for your service. I am very pleased with the result. I have seen exponencial growth in my business and its all thanks to your amazing service",
-    },
-    {
-      id: 3,
-      src: "/images/ceo.webp",
-      nameAr: "إيميلي ستونس",
-      nameEn: "Emily Stones",
-      titleAr: "المدير التنفيذي لشركة جورو التسويقية",
-      titleEn: "CEO, Marketing Guru",
-      messageAr:
-        "شكرًا لخدمتكم. أنا سعيد جدًا بالنتيجة. لقد شهدتُ نموًا هائلًا في أعمالي، وكل ذلك بفضل خدمتكم الرائعة.",
-      messageEn:
-        "Thank You for your service. I am very pleased with the result. I have seen exponencial growth in my business and its all thanks to your amazing service",
-    },
-    {
-      id: 4,
-      src: "/images/ceo.webp",
-      nameAr: "إيميلي ستونس",
-      nameEn: "Emily Stones",
-      titleAr: "المدير التنفيذي لشركة جورو التسويقية",
-      titleEn: "CEO, Marketing Guru",
-      messageAr:
-        "شكرًا لخدمتكم. أنا سعيد جدًا بالنتيجة. لقد شهدتُ نموًا هائلًا في أعمالي، وكل ذلك بفضل خدمتكم الرائعة.",
-      messageEn:
-        "Thank You for your service. I am very pleased with the result. I have seen exponencial growth in my business and its all thanks to your amazing service",
-    },
-    {
-      id: 5,
-      src: "/images/ceo.webp",
-      nameAr: "إيميلي ستونس",
-      nameEn: "Emily Stones",
-      titleAr: "المدير التنفيذي لشركة جورو التسويقية",
-      titleEn: "CEO, Marketing Guru",
-      messageAr:
-        "شكرًا لخدمتكم. أنا سعيد جدًا بالنتيجة. لقد شهدتُ نموًا هائلًا في أعمالي، وكل ذلك بفضل خدمتكم الرائعة.",
-      messageEn:
-        "Thank You for your service. I am very pleased with the result. I have seen exponencial growth in my business and its all thanks to your amazing service",
-    },
-  ];
 
   useEffect(() => {
     setDir(lang === "ar" ? "rtl" : "ltr");
