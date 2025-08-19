@@ -2,7 +2,7 @@
 // Importing Next Components
 import Link from "next/link";
 // Importing Theme Provider
-import { useTheme } from "@/app/lib/theme/ThemeProvider";
+// import { useTheme } from "@/app/lib/theme/ThemeProvider";
 // Importing Language Provider
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
 // Importing React-Icons
@@ -10,7 +10,7 @@ import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 
 const HeroVideo: React.FC = () => {
   const { language } = useLanguage();
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
 
   return (
     <section>
@@ -29,16 +29,18 @@ const HeroVideo: React.FC = () => {
 
         {/* Overlay for readability */}
         <div
-          className={`absolute inset-0 ${
-            theme === "dark"
-              ? "border-[#ffffff30] bg-black/40"
-              : "border-[#00000030] bg-white/5"
-          }`}
+          // className={`absolute inset-0 ${
+          //   theme === "dark"
+          //     ? "border-[#ffffff30] bg-black/40"
+          //     : "border-[#00000030] bg-white/5"
+          // }`}
+          className={`absolute inset-0 "border-[#ffffff30] bg-black/40`}
         ></div>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full pb-10 pt-40 bg-gradient-to-t from-[hsl(var(--background))] to-transparent">
-        <Link href="#services" className="flex flex-col items-center">
+      {/* <div className="absolute bottom-0 left-0 w-full pb-10 pt-40 bg-gradient-to-t from-[hsl(var(--background))] to-transparent"> */}
+      <div className="absolute bottom-0 left-0 w-full pb-10 pt-40">
+        <Link href="#services" className="flex flex-col items-center text-white">
           <p className="text-lg">
             {language === "en" ? "Explore Services" : "اكتشف خدامتنا"}
           </p>
