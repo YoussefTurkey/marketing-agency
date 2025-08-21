@@ -81,12 +81,22 @@ const Projects = () => {
           >
             <Image
               src={proj.src}
-              alt={proj.alt}
+              alt={language === 'en' ? proj.nameEn : proj.nameAr}
               width={1000}
               height={1000}
               loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
+
+            <div className={`absolute inset-0 flex items-end ${language === 'en' ? 'justify-start' : 'justify-end'} p-4 bg-gradient-to-t from-black/50 to-transparent`}>
+              <Link
+                href={proj.link}
+                role="button"
+                className="bg-[hsl(var(--secondary))] text-[hsl(var(--background))] px-4 py-2 rounded-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300"
+              >
+                {language === "en" ? "See Project" : "شاهد المشروع"}
+              </Link>
+            </div>
           </div>
         ))}
       </motion.div>

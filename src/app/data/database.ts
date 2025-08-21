@@ -1,58 +1,76 @@
 // Projects
-type IProject = {
+export type IProject = {
   id: number;
   src: string;
-  alt: string;
+  nameAr: string;
+  nameEn: string;
   link: string;
+  slug: string;
 };
 export const project: IProject[] = [
   {
     id: 1,
     src: "/images/project1.webp",
-    alt: "project-01",
-    link: "/projects",
+    nameAr: "المشروع-01",
+    nameEn: "project-01",
+    link: "/projects/project-01",
+    slug: 'project-01'
   },
   {
     id: 2,
     src: "/images/project2.webp",
-    alt: "project-02",
-    link: "/projects",
+    nameAr: "المشروع-02",
+    nameEn: "project-02",
+    link: "/projects/project-02",
+    slug: 'project-02'
   },
   {
     id: 3,
     src: "/images/project3.webp",
-    alt: "project-03",
-    link: "/projects",
+    nameAr: "المشروع-03",
+    nameEn: "project-03",
+    link: "/projects/project-03",
+    slug: 'project-03'
   },
   {
     id: 4,
     src: "/images/project4.webp",
-    alt: "project-04",
-    link: "/projects",
+    nameAr: "المشروع-04",
+    nameEn: "project-04",
+    link: "/projects/project-04",
+    slug: 'project-04'
   },
   {
     id: 5,
     src: "/images/project1.webp",
-    alt: "project-05",
-    link: "/projects",
+    nameAr: "المشروع-05",
+    nameEn: "project-05",
+    link: "/projects/project-05",
+    slug: 'project-05'
   },
   {
     id: 6,
     src: "/images/project2.webp",
-    alt: "project-06",
-    link: "/projects",
+    nameAr: "المشروع-06",
+    nameEn: "project-06",
+    link: "/projects/project-06",
+    slug: 'project-06'
   },
   {
     id: 7,
     src: "/images/project3.webp",
-    alt: "project-07",
-    link: "/projects",
+    nameAr: "المشروع-07",
+    nameEn: "project-07",
+    link: "/projects/project-07",
+    slug: 'project-07'
   },
   {
     id: 8,
     src: "/images/project4.webp",
-    alt: "project-08",
-    link: "/projects",
+    nameAr: "المشروع-08",
+    nameEn: "project-08",
+    link: "/projects/project-08",
+    slug: 'project-08'
   },
 ];
 
