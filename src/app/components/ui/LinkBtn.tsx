@@ -11,7 +11,7 @@ const LinkBtn = () => {
   const { language } = useLanguage();
   return (
     <div
-      className={`flex flex-col items-center gap-5 fixed top-70 z-1000 ${
+      className={`flex flex-col items-center gap-5 fixed top-70 md:top-100 z-1000 ${
         language === "en" ? "right-5 sm:right-7" : "left-7 sm:left-5"
       }`}
     >
