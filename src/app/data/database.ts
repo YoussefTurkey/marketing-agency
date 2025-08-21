@@ -353,4 +353,4 @@ export const faq: IFAQ[] = [
       descEn:
         "Donec rutrum, mauris at blandit convallis, orci nulla volutpatsapien, id pulvinar leo ligula eget nunc. In quis magna magna. Nullam mattis eget.",
     },
-  ];
+];

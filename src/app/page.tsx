@@ -6,16 +6,20 @@ import OurTeam from "./components/sections/OurTeam";
 import Contacts from "./components/sections/Contacts";
 import Testimonials from "./components/sections/Testimonials";
 import FAQs from "./components/sections/FAQs";
+import Companies from "./components/sections/Companies";
+import Info from "./components/sections/Info";
 
 export default function Home() {
   return (
     <main>
       <HeroVideo />
       <Counters />
+      <Info />
       <OurProjects />
       <OurTeam />
-      <Testimonials/>
+      <Testimonials />
       <FAQs />
+      <Companies />
       <Contacts />
     </main>
   );
