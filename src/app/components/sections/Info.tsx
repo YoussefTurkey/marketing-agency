@@ -58,14 +58,14 @@ const Info = () => {
               : "حيث ينبض العالم!، اتجه بنشاطك الرقمي نحو القمة مع أفضل شركة تسويق الكتروني في السعودية، “أدسيلا” الشركة الرائدة التي تجاوزت التوقعات ككونها مجرد وكالة دعاية تقليدية إلى مصدرًا للتقدم والتطور  في كافة المجالات الرقمية."}
           </p>
           {language === "en" ? (
-            <Link href={"/"} className="flex items-end gap-x-2 underline decoration-[hsl(var(--secondary))] underline-offset-8">
+            <Link href={"/about"} className="flex items-end gap-x-2 underline decoration-[hsl(var(--secondary))] underline-offset-8">
               <span>Explore more</span>
               <span>
                 <MdKeyboardDoubleArrowRight />
               </span>
             </Link>
           ) : (
-            <Link href={"/"} className="flex items-end gap-x-2 underline decoration-[hsl(var(--secondary))] underline-offset-8">
+            <Link href={"/about"} className="flex items-end gap-x-2 underline decoration-[hsl(var(--secondary))] underline-offset-8">
               <span>اكتشف المزيد</span>
               <span>
                 <MdKeyboardDoubleArrowLeft />
