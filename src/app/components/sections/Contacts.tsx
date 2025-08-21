@@ -9,7 +9,7 @@ import Titles from "../ui/Titles";
 import { RiWhatsappFill } from "react-icons/ri";
 import { FaEnvelope } from "react-icons/fa";
 import { IoCall } from "react-icons/io5";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { registerSchema, TRegist } from "@/app/lib/validations/validContact";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Importing EmailJS
@@ -18,11 +18,14 @@ import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 // React hooks
 import { useEffect, useRef, useState } from "react";
+// Importing React-International-Phone
+import "react-international-phone/style.css";
+import { PhoneInput } from "react-international-phone";
 
 const Contacts = () => {
   const { language } = useLanguage();
   const [loading, setLoading] = useState(false);
-
+  const [phone, setPhone] = useState("");
   const ref = useRef<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(false);
 
@@ -53,6 +56,7 @@ const Contacts = () => {
     register,
     formState: { errors },
     reset,
+    control,
   } = useForm<TRegist>({
     mode: "onChange",
     resolver: zodResolver(registerSchema),
@@ -112,19 +116,32 @@ const Contacts = () => {
             <label htmlFor="phone" className="text-xl cursor-pointer">
               {language === "en" ? "Phone Number" : "رقم الهاتف"}
             </label>
-            <input
-              {...register("phone")}
-              type="tel"
-              id="phone"
-              placeholder="+99 999 999 9999"
-              className={`p-3 my-2 border rounded-md
-             border-[hsl(var(--foreground))]
-             focus:border-[hsl(var(--secondary))]
-             focus:ring-2 focus:ring-[hsl(var(--secondary))]
-             focus:outline-none transition-colors ${
-               language === "en" ? "text-left" : "text-right"
-             }`}
-            />
+            <div className="my-2">
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <PhoneInput
+                    defaultCountry="eg"
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="+20 11 111 1111"
+                    inputStyle={{
+                      width: "100%",
+                      padding: "25px",
+                      borderTopRightRadius: "8px",
+                      borderBottomRightRadius: "8px",
+                      borderWidth: "1px",
+                      borderColor: "hsl(var(--foreground))",
+                      color: "hsl(var(--foreground))",
+                      fontSize: "16px",
+                      backgroundColor: "hsl(var(--background))",
+                      transition: "all 0.2s ease",
+                    }}
+                  />
+                )}
+              />
+            </div>
             {errors.phone && (
               <span className="text-red-500 py-1">{errors.phone.message}</span>
             )}
