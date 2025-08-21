@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Navbar({ language }: { language: string }) {
+export default function Navbar({ language, scrolled }: { language: string, scrolled: boolean }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -12,7 +12,7 @@ export default function Navbar({ language }: { language: string }) {
       <li className="group">
         <Link
           href={isHome ? "#projects" : "/#projects"}
-          className="group-hover:text-[hsl(var(--secondary))]"
+          className={`${scrolled ? '' : 'text-white'} group-hover:text-[hsl(var(--secondary))]`}
         >
           {language === "en" ? "Our Projects" : "أعمالنا"}
         </Link>
@@ -20,7 +20,7 @@ export default function Navbar({ language }: { language: string }) {
       <li className="group">
         <Link
           href={isHome ? "#teams" : "/#teams"}
-          className="group-hover:text-[hsl(var(--secondary))]"
+          className={`${scrolled ? '' : 'text-white'} group-hover:text-[hsl(var(--secondary))]`}
         >
           {language === "en" ? "Our Team" : "الفريق"}
         </Link>
@@ -28,7 +28,7 @@ export default function Navbar({ language }: { language: string }) {
       <li className="group">
         <Link
           href={isHome ? "#testimonials" : "/#testimonials"}
-          className="group-hover:text-[hsl(var(--secondary))]"
+          className={`${scrolled ? '' : 'text-white'} group-hover:text-[hsl(var(--secondary))]`}
         >
           {language === "en" ? "Testimonials" : "قصص النجاح"}
         </Link>
@@ -36,7 +36,7 @@ export default function Navbar({ language }: { language: string }) {
       <li className="group">
         <Link
           href={isHome ? "#faqs" : "/#faqs"}
-          className="group-hover:text-[hsl(var(--secondary))]"
+          className={`${scrolled ? '' : 'text-white'} group-hover:text-[hsl(var(--secondary))]`}
         >
           {language === "en" ? "FAQs" : "الأسئلة الشائعة"}
         </Link>

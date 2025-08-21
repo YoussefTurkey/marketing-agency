@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
 import { useTheme } from "@/app/lib/theme/ThemeProvider";
 // Importing React Components
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Importing Components
 import LanguageToggle from "@/app/lib/lang/LanguageToggle";
 import ThemeToggle from "@/app/lib/theme/ThemeToggle";
@@ -19,8 +19,21 @@ import { IoClose } from "react-icons/io5";
 const Header = () => {
   const { language } = useLanguage();
   const { theme } = useTheme();
-
+  const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 850) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header>
@@ -62,7 +75,7 @@ const Header = () => {
           </Link>
 
           {/* Links */}
-          <Navbar language={language} />
+          <Navbar scrolled={scrolled} language={language} />
         </div>
 
         <div className="flex items-center gap-2 md:gap-5">
@@ -83,8 +96,8 @@ const Header = () => {
           onClick={() => setMenu(false)}
           className={`fixed inset-0 ${
             theme === "dark"
-              ? "border-[#ffffff30] bg-black/30"
-              : "border-[#00000030] bg-white/30"
+              ? "border-[#000] bg-black/100"
+              : "border-[#fff] bg-white/100"
           } transition-opacity duration-500
             ${menu ? "opacity-100 visible" : "opacity-0 invisible"}
           `}
