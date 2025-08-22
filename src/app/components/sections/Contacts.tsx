@@ -113,7 +113,20 @@ const Contacts = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="flex flex-col md:flex-row gap-0 md:gap-10"
       >
-        <form className="my-5 w-full" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="my-5 w-full"
+          onSubmit={handleSubmit(onSubmit, (formErrors) => {
+            // هنا لو الفورم فيه أخطاء
+            if (Object.keys(formErrors).length > 0) {
+              addNotification(
+                "error",
+                language === "en"
+                  ? "❌ Please fill all required fields"
+                  : "❌ من فضلك املأ جميع الحقول المطلوبة"
+              );
+            }
+          })}
+        >
           <div className="flex flex-col w-full my-3">
             <label htmlFor="phone" className="text-xl cursor-pointer">
               {language === "en" ? "Phone Number" : "رقم الهاتف"}

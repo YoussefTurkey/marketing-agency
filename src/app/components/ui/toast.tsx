@@ -45,10 +45,10 @@ export default function Notification({
     >
       {showIcon && (
         <div className="mt-1">
-          {type === "success" && "✅"}
-          {type === "error" && "❌"}
-          {type === "info" && "ℹ️"}
-          {type === "warning" && "⚠️"}
+          {type === "success"}
+          {type === "error"}
+          {type === "info"}
+          {type === "warning"}
         </div>
       )}
 
