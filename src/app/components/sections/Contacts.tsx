@@ -21,6 +21,8 @@ import { useEffect, useRef, useState } from "react";
 // Importing React-International-Phone
 import "react-international-phone/style.css";
 import { PhoneInput } from "react-international-phone";
+// Importing Toast
+import { useToast } from "@/app/lib/contexts/toastContext";
 
 const Contacts = () => {
   const { language } = useLanguage();
@@ -62,20 +64,19 @@ const Contacts = () => {
     resolver: zodResolver(registerSchema),
   });
 
+  const { addNotification } = useToast();
+
   const onSubmit: SubmitHandler<TRegist> = async ({ phone, email, msg }) => {
     setLoading(true);
     try {
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        {
-          phone,
-          email,
-          message: msg,
-        },
+        { phone, email, message: msg },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
-      alert(
+      addNotification(
+        "success",
         language === "en"
           ? "Message sent successfully 🎉"
           : "تم إرسال الرسالة بنجاح 🎉"
@@ -83,7 +84,8 @@ const Contacts = () => {
       reset();
     } catch (error) {
       console.error(error);
-      alert(
+      addNotification(
+        "error",
         language === "en" ? "❌ Failed to send message" : "❌ فشل إرسال الرسالة"
       );
     } finally {
@@ -116,7 +118,7 @@ const Contacts = () => {
             <label htmlFor="phone" className="text-xl cursor-pointer">
               {language === "en" ? "Phone Number" : "رقم الهاتف"}
             </label>
-            <div className="my-2">
+            <div className="my-2" dir={language === "ar" ? "ltr" : "ltr"}>
               <Controller
                 name="phone"
                 control={control}
@@ -137,14 +139,12 @@ const Contacts = () => {
                       fontSize: "16px",
                       backgroundColor: "hsl(var(--background))",
                       transition: "all 0.2s ease",
+                      textAlign: language === "ar" ? "left" : "left",
                     }}
                   />
                 )}
               />
             </div>
-            {errors.phone && (
-              <span className="text-red-500 py-1">{errors.phone.message}</span>
-            )}
           </div>
 
           <div className="flex flex-col w-full my-3">
@@ -162,9 +162,6 @@ const Contacts = () => {
              focus:ring-2 focus:ring-[hsl(var(--secondary))]
              focus:outline-none transition-colors"
             />
-            {errors.email && (
-              <span className="text-red-500 py-1">{errors.email.message}</span>
-            )}
           </div>
 
           <div className="flex flex-col w-full my-3">
@@ -183,9 +180,6 @@ const Contacts = () => {
              focus:outline-none transition-colors"
               placeholder={language === "en" ? "Your message" : "رسالتك"}
             ></textarea>
-            {errors.msg && (
-              <span className="text-red-500 py-1">{errors.msg.message}</span>
-            )}
           </div>
 
           <button
