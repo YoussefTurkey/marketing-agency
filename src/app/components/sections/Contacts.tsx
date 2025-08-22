@@ -213,7 +213,7 @@ const Contacts = () => {
         {/* روابط التواصل */}
         <div className="flex flex-col gap-10 my-15 w-fit">
           <Link
-            href={"https://wa.me/+201273451052"}
+            href={"https://wa.me/+966543348930"}
             target="_blank"
             className="flex gap-5 items-center p-10 rounded-xl border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-[hsl(var(--background))] transition-all"
           >
@@ -228,7 +228,7 @@ const Contacts = () => {
           </Link>
 
           <Link
-            href={"mailto:you.turkey11@gmail.com"}
+            href={"mailto:siteservicerequest@al-marketer.com"}
             target="_blank"
             className="flex gap-5 items-center p-10 rounded-xl border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-[hsl(var(--background))] transition-all"
           >

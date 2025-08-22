@@ -26,7 +26,7 @@ const LinkBtn = () => {
         }}
       >
         <Link
-          href={"https://wa.me/+201273451052"}
+          href={"https://wa.me/+966543348930"}
           target="_blank"
           className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer transition-all"
         >
@@ -43,7 +43,7 @@ const LinkBtn = () => {
         }}
       >
         <Link
-          href={"mailto:you.turkey11@gmail.com"}
+          href={"mailto:siteservicerequest@al-marketer.com"}
           target="_blank"
           className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer transition-all"
         >
