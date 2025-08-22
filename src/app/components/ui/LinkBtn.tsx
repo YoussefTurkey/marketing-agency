@@ -28,9 +28,9 @@ const LinkBtn = () => {
         <Link
           href={"https://wa.me/+966543348930"}
           target="_blank"
-          className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer transition-all"
+          className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-12 h-12 flex justify-center items-center cursor-pointer transition-all"
         >
-          <RiWhatsappFill size={20} />
+          <RiWhatsappFill size={25} />
         </Link>
       </motion.div>
 
@@ -45,9 +45,9 @@ const LinkBtn = () => {
         <Link
           href={"mailto:siteservicerequest@al-marketer.com"}
           target="_blank"
-          className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-10 h-10 flex justify-center items-center cursor-pointer transition-all"
+          className="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--primary))] text-[hsl(var(--background))] hover:text-[hsl(var(--foreground))] rounded-full w-12 h-12 flex justify-center items-center cursor-pointer transition-all"
         >
-          <FaEnvelope size={20} />
+          <FaEnvelope size={25} />
         </Link>
       </motion.div>
     </div>
