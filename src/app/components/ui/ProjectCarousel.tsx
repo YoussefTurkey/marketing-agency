@@ -48,26 +48,18 @@ export default function ProjectCarousel({
       >
         {project.map((proj) => (
           <SwiperSlide key={proj.id}>
-            <div className="relative w-full sm:w-90 lg:w-60 h-80 xl:w-80 xl:h-100 2xl:w-90 2xl:h-120 rounded-2xl overflow-hidden shadow-lg group">
-              <Image
-                src={proj.src}
-                alt={language === 'en' ? proj.nameEn : proj.nameAr}
-                width={1000}
-                height={1000}
-                loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-
-              <div className={`absolute inset-0 flex items-end ${language === 'en' ? 'justify-start' : 'justify-end'} p-4 bg-gradient-to-t from-black/50 to-transparent`}>
-                <Link
-                  href={proj.link}
-                  role="button"
-                  className="bg-[hsl(var(--secondary))] text-[hsl(var(--background))] px-4 py-2 rounded-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300"
-                >
-                  {language === "en" ? "See Project" : "شاهد المشروع"}
-                </Link>
+            <Link href={proj.link}>
+              <div className="relative w-full sm:w-90 lg:w-60 h-80 xl:w-80 xl:h-100 2xl:w-90 2xl:h-120 rounded-2xl overflow-hidden shadow-lg group">
+                <Image
+                  src={proj.src}
+                  alt={language === "en" ? proj.nameEn : proj.nameAr}
+                  width={1000}
+                  height={1000}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
-            </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -117,12 +117,26 @@ const Contacts = () => {
           className="my-5 w-full"
           onSubmit={handleSubmit(onSubmit, (formErrors) => {
             // هنا لو الفورم فيه أخطاء
-            if (Object.keys(formErrors).length > 0) {
+            if (formErrors.phone) {
               addNotification(
                 "error",
                 language === "en"
-                  ? "❌ Please fill all required fields"
-                  : "❌ من فضلك املأ جميع الحقول المطلوبة"
+                  ? formErrors.phone.message || "❌ Invalid phone number"
+                  : "❌ رقم الهاتف غير صحيح"
+              );
+            } else if (formErrors.email) {
+              addNotification(
+                "error",
+                language === "en"
+                  ? formErrors.email.message || "❌ Invalid email"
+                  : "❌ البريد الإلكتروني غير صحيح"
+              );
+            } else {
+              addNotification(
+                "error",
+                language === "en"
+                  ? "❌ Please fill the required fields"
+                  : "❌ من فضلك املأ الحقول المطلوبة"
               );
             }
           })}
@@ -170,10 +184,10 @@ const Contacts = () => {
               id="email"
               placeholder="example@gmail.com"
               className="p-3 my-2 border rounded-md
-             border-[hsl(var(--foreground))]
-             focus:border-[hsl(var(--secondary))]
-             focus:ring-2 focus:ring-[hsl(var(--secondary))]
-             focus:outline-none transition-colors"
+                        border-[hsl(var(--foreground))]
+                        focus:border-[hsl(var(--secondary))]
+                        focus:ring-2 focus:ring-[hsl(var(--secondary))]
+                        focus:outline-none transition-colors"
             />
           </div>
 
@@ -187,10 +201,10 @@ const Contacts = () => {
               cols={30}
               rows={10}
               className="p-3 my-2 border rounded-md
-             border-[hsl(var(--foreground))]
-             focus:border-[hsl(var(--secondary))]
-             focus:ring-2 focus:ring-[hsl(var(--secondary))]
-             focus:outline-none transition-colors"
+                        border-[hsl(var(--foreground))]
+                        focus:border-[hsl(var(--secondary))]
+                        focus:ring-2 focus:ring-[hsl(var(--secondary))]
+                        focus:outline-none transition-colors"
               placeholder={language === "en" ? "Your message" : "رسالتك"}
             ></textarea>
           </div>
@@ -242,14 +256,23 @@ const Contacts = () => {
             </span>
           </Link>
 
-          <div className="flex gap-5 items-center p-10 rounded-xl border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-[hsl(var(--background))] transition-all">
+          <div
+            onClick={() => {
+              navigator.clipboard.writeText("+966543348930");
+              addNotification(
+                "success",
+                language === "en" ? "📋 Number copied!" : "📋 تم نسخ الرقم!"
+              );
+            }}
+            className="flex gap-5 items-center p-10 rounded-xl border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-[hsl(var(--background))] transition-all cursor-pointer"
+          >
             <span>
               <IoCall size={30} />
             </span>
             <span>
               {language === "en"
-                ? "Contact directly on (+99 999 999 9999)"
-                : "تواصل معنا مباشرةً عبر (+99 999 999 9999)"}
+                ? "Contact directly on (+966543348930)"
+                : "تواصل معنا مباشرةً عبر (966543348930+)"}
             </span>
           </div>
         </div>

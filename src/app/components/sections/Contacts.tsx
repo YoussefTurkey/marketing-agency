@@ -117,12 +117,26 @@ const Contacts = () => {
           className="my-5 w-full"
           onSubmit={handleSubmit(onSubmit, (formErrors) => {
             // هنا لو الفورم فيه أخطاء
-            if (Object.keys(formErrors).length > 0) {
+            if (formErrors.phone) {
               addNotification(
                 "error",
                 language === "en"
-                  ? "❌ Please fill all required fields"
-                  : "❌ من فضلك املأ جميع الحقول المطلوبة"
+                  ? formErrors.phone.message || "❌ Invalid phone number"
+                  : "❌ رقم الهاتف غير صحيح"
+              );
+            } else if (formErrors.email) {
+              addNotification(
+                "error",
+                language === "en"
+                  ? formErrors.email.message || "❌ Invalid email"
+                  : "❌ البريد الإلكتروني غير صحيح"
+              );
+            } else {
+              addNotification(
+                "error",
+                language === "en"
+                  ? "❌ Please fill the required fields"
+                  : "❌ من فضلك املأ الحقول المطلوبة"
               );
             }
           })}
@@ -170,10 +184,10 @@ const Contacts = () => {
               id="email"
               placeholder="example@gmail.com"
               className="p-3 my-2 border rounded-md
-             border-[hsl(var(--foreground))]
-             focus:border-[hsl(var(--secondary))]
-             focus:ring-2 focus:ring-[hsl(var(--secondary))]
-             focus:outline-none transition-colors"
+                        border-[hsl(var(--foreground))]
+                        focus:border-[hsl(var(--secondary))]
+                        focus:ring-2 focus:ring-[hsl(var(--secondary))]
+                        focus:outline-none transition-colors"
             />
           </div>
 
@@ -187,10 +201,10 @@ const Contacts = () => {
               cols={30}
               rows={10}
               className="p-3 my-2 border rounded-md
-             border-[hsl(var(--foreground))]
-             focus:border-[hsl(var(--secondary))]
-             focus:ring-2 focus:ring-[hsl(var(--secondary))]
-             focus:outline-none transition-colors"
+                        border-[hsl(var(--foreground))]
+                        focus:border-[hsl(var(--secondary))]
+                        focus:ring-2 focus:ring-[hsl(var(--secondary))]
+                        focus:outline-none transition-colors"
               placeholder={language === "en" ? "Your message" : "رسالتك"}
             ></textarea>
           </div>
