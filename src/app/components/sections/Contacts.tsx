@@ -242,14 +242,23 @@ const Contacts = () => {
             </span>
           </Link>
 
-          <div className="flex gap-5 items-center p-10 rounded-xl border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-[hsl(var(--background))] transition-all">
+          <div
+            onClick={() => {
+              navigator.clipboard.writeText("+966543348930");
+              addNotification(
+                "success",
+                language === "en" ? "📋 Number copied!" : "📋 تم نسخ الرقم!"
+              );
+            }}
+            className="flex gap-5 items-center p-10 rounded-xl border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-[hsl(var(--background))] transition-all cursor-pointer"
+          >
             <span>
               <IoCall size={30} />
             </span>
             <span>
               {language === "en"
-                ? "Contact directly on (+99 999 999 9999)"
-                : "تواصل معنا مباشرةً عبر (+99 999 999 9999)"}
+                ? "Contact directly on (+966543348930)"
+                : "تواصل معنا مباشرةً عبر (966543348930+)"}
             </span>
           </div>
         </div>
