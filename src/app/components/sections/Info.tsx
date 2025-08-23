@@ -43,7 +43,7 @@ const Info = () => {
   }, []);
 
   return (
-    <section ref={ref} className="container mx-auto my-0 lg:my-30 px-5 xl:px-0">
+    <section ref={ref} className="container mx-auto my-0 lg:my-30 px-5 xl:px-0" id="info">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}

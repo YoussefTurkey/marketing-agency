@@ -31,7 +31,7 @@ const HeroVideo: React.FC = () => {
       </div>
 
       <div className="absolute bottom-0 left-0 w-full pb-10 pt-40">
-        <Link href="#services" className="flex flex-col items-center text-white">
+        <Link href="#info" className="flex flex-col items-center text-white">
           <p className="text-lg">
             {language === "en" ? "Explore Services" : "اكتشف خدامتنا"}
           </p>
