@@ -142,7 +142,7 @@ const Contacts = () => {
           })}
         >
           <div className="flex flex-col w-full my-3">
-            <label htmlFor="phone" className="text-xl cursor-pointer">
+            <label className="text-xl cursor-pointer">
               {language === "en" ? "Phone Number" : "رقم الهاتف"}
             </label>
             <div className="my-2" dir={language === "ar" ? "ltr" : "ltr"}>
