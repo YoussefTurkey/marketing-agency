@@ -2,6 +2,7 @@
 // Importing Next Components
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 // Importing Language Provider
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
 import { useTheme } from "@/app/lib/theme/ThemeProvider";
@@ -17,6 +18,9 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 
 const Header = () => {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const { language } = useLanguage();
   const { theme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
@@ -150,6 +154,24 @@ const Header = () => {
               className="group-hover:text-[hsl(var(--secondary))] text-3xl"
             >
               {language === "en" ? "Our Team" : "الفريق"}
+            </Link>
+          </li>
+          <li className="group border-b-1 pb-5">
+            <Link
+              href={isHome ? "#testimonials" : "/#testimonials"}
+              onClick={() => setMenu(false)}
+              className={`group-hover:text-[hsl(var(--secondary))] text-3xl`}
+            >
+              {language === "en" ? "Testimonials" : "قصص النجاح"}
+            </Link>
+          </li>
+          <li className="group border-b-1 pb-5">
+            <Link
+              href={isHome ? "#faqs" : "/#faqs"}
+              onClick={() => setMenu(false)}
+              className={`group-hover:text-[hsl(var(--secondary))] text-3xl`}
+            >
+              {language === "en" ? "FAQs" : "الأسئلة الشائعة"}
             </Link>
           </li>
           <li className="group border-b-1 pb-5">

@@ -48,29 +48,23 @@ export default function ProjectCarousel({
       >
         {teams.map((person) => (
           <SwiperSlide key={person.id}>
-            <div className="relative rounded-2xl overflow-hidden shadow-lg group">
-              <Image
-                src={person.image}
-                width={1000}
-                height={1000}
-                alt={language === 'en' ? person.nameEn : person.nameAr}
-                loading="lazy"
-                className="w-full h-170 object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 flex items-end justify-between p-4 bg-gradient-to-t from-black/50 to-transparent">
-                <Link
-                  href={person.link}
-                  role="button"
-                  className="bg-[hsl(var(--secondary))] text-[hsl(var(--background))] px-4 py-2 rounded-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300"
-                >
-                  {language === "en" ? "See Profile" : "عرض ملفه"}
-                </Link>
-
-                <p className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 text-white">
-                  {language === 'en' ? person.nameEn : person.nameAr}
-                </p>
+            <Link href={person.link}>
+              <div className="relative rounded-2xl overflow-hidden shadow-lg group">
+                <Image
+                  src={person.image}
+                  width={1000}
+                  height={1000}
+                  alt={language === "en" ? person.nameEn : person.nameAr}
+                  loading="lazy"
+                  className="w-full h-170 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 flex items-end justify-between p-4 bg-gradient-to-t from-black/50 to-transparent">
+                  <p className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 text-white">
+                    {language === "en" ? person.nameEn : person.nameAr}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

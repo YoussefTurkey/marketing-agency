@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main>
       <HeroVideo />
-      <Counters />
+      {/* <Counters /> */}
       <Info />
       <OurProjects />
       <OurTeam />
