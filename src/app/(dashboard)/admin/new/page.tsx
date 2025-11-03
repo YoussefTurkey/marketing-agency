@@ -31,6 +31,7 @@ export default function AddProjectPage() {
       industryEn: "",
       industryAr: "",
     },
+    link: '',
     processEn: [{ head: "", body: "" }],
     processAr: [{ head: "", body: "" }],
     image: "",
