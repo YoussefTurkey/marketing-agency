@@ -1,52 +1,65 @@
 "use client";
-// Importing Next Compoentns
+// Importing Next Components
 import Image from "next/image";
 import Link from "next/link";
 // Framer Motion
 import { motion } from "framer-motion";
 // React hooks
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 // Importing Language Provider
 import { useLanguage } from "@/app/lib/lang/LanguageProvider";
 // Importing Components
 import Titles from "@/app/components/ui/Titles";
 // Importing React-Icons
 import { LuDownload } from "react-icons/lu";
-// Importing data
-import { project } from "@/app/data/database";
+// Firebase
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { app } from "@/app/firebase/firebase";
+import Loading from "@/app/components/ui/Loading";
+import { PortfolioItem } from "@/types/globalTypes";
+
+const db = getFirestore(app);
 
 const Projects = () => {
   const { language } = useLanguage();
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [inView, setInView] = useState(false);
+  const [projects, setProjects] = useState<PortfolioItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch projects from Firestore
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setInView(true);
-            observer.disconnect(); // once animated, stop observing
-          }
-        });
-      },
-      { threshold: 0.2 } // 20% visible
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "projects"));
+        const projectsData: PortfolioItem[] = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as PortfolioItem[];
+        
+        // تصفية المشاريع اللي فيها صورة فقط
+        const validProjects = projectsData.filter(project => 
+          project.image && project.image.trim() !== ""
+        );
+        
+        setProjects(validProjects);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setLoading(false);
+      }
     };
+
+    fetchProjects();
   }, []);
+  console.log(projects)
+
+  if (loading) return <Loading />;
 
   return (
-    <main ref={ref} className="container mx-auto my-30 px-5 xl:px-0">
+    <main className="container mx-auto my-30 px-5 xl:px-0">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="flex items-center justify-between"
       >
@@ -64,42 +77,78 @@ const Projects = () => {
           <span className="sm:pr-2 text-lg">
             <LuDownload />
           </span>
-          <span className="hidden sm:flex">{language === 'en' ? 'Download as PDF' : 'إحفظه كـ PDF'}</span>
+          <span className="hidden sm:flex">
+            {language === 'en' ? 'Download as PDF' : 'إحفظه كـ PDF'}
+          </span>
         </Link>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-10"
       >
-        {project.map((proj) => (
-          <div
-            key={proj.id}
+        {projects.map((project, index) => (
+          <motion.div
+            key={project.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ 
+              duration: 0.6, 
+              ease: "easeOut",
+              delay: index * 0.1
+            }}
             className="relative w-full sm:w-90 lg:w-60 h-80 xl:w-80 xl:h-100 2xl:w-90 2xl:h-120 rounded-2xl overflow-hidden shadow-lg group"
           >
-            <Image
-              src={proj.src}
-              alt={language === 'en' ? proj.nameEn : proj.nameAr}
-              width={1000}
-              height={1000}
-              loading="lazy"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
+            {/* استخدام صورة افتراضية إذا كانت الصورة فارغة */}
+            {project.image && project.image.trim() !== "" ? (
+              <Image
+                src={project.image}
+                alt={language === 'en' ? project.titleEn : project.titleAr}
+                width={1000}
+                height={1000}
+                loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">
+                  {language === "en" ? "No Image" : "لا توجد صورة"}
+                </span>
+              </div>
+            )}
 
-            <div className={`absolute inset-0 flex items-end ${language === 'en' ? 'justify-start' : 'justify-end'} p-4 bg-gradient-to-t from-black/50 to-transparent`}>
+            <div className={`absolute inset-0 flex items-end ${
+              language === 'en' ? 'justify-start' : 'justify-end'
+            } p-4 bg-gradient-to-t from-black/50 to-transparent`}>
               <Link
-                href={proj.link}
+                href={`/projects/${project.id}`} 
                 role="button"
                 className="bg-[hsl(var(--secondary))] text-[hsl(var(--background))] px-4 py-2 rounded-xl opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300"
               >
                 {language === "en" ? "See Project" : "شاهد المشروع"}
               </Link>
             </div>
-          </div>
+          </motion.div>
         ))}
       </motion.div>
+
+      {projects.length === 0 && !loading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center py-10"
+        >
+          <p className="text-lg text-gray-600">
+            {language === "en" ? "No projects found" : "لا توجد مشاريع"}
+          </p>
+        </motion.div>
+      )}
     </main>
   );
 };

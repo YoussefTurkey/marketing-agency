@@ -16,11 +16,14 @@ import Navbar from "../ui/HeaderLinks";
 // Importing React-Icons
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { useAuth } from "@/app/firebase/auth";
+import IsAdmin from "../ui/isAdmin";
 
 const Header = () => {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
+  const {user} = useAuth()
   const { language } = useLanguage();
   const { theme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
@@ -40,75 +43,78 @@ const Header = () => {
   }, []);
 
   return (
-    <header>
-      <section
-        className={`container mx-auto flex items-center justify-between w-[95%] xl:w-full px-10 py-5 fixed top-5 left-2.5 md:left-5 lg:left-6.5 xl:left-20 2xl:left-45 backdrop-blur-sm rounded-lg border-[1px] z-1000 ${
-          theme === "dark"
-            ? "border-[#ffffff30] bg-white/10"
-            : "border-[#00000030] bg-black/5"
-        }`}
-      >
-        <div className="flex items-center gap-10">
-          {/* logo */}
-          <Link href={"/"}>
-            {language === "en" ? (
-              <Image
-                src={
-                  theme === "dark"
-                    ? "/images/logo-dark.webp"
-                    : "/images/logo.webp"
-                }
-                width={150}
-                height={150}
-                alt="logo"
-                loading="lazy"
-              />
-            ) : (
-              <Image
-                src={
-                  theme === "dark"
-                    ? "/images/logoAr-dark.webp"
-                    : "/images/logoAr.webp"
-                }
-                width={150}
-                height={150}
-                alt="logo"
-                loading="lazy"
-              />
-            )}
-          </Link>
+    <>
+      {!pathname.startsWith('/admin') && (
+        <header>
+          <section
+            className={`container mx-auto flex items-center justify-between w-[95%] xl:w-full px-10 py-5 fixed top-5 left-2.5 md:left-5 lg:left-6.5 xl:left-20 2xl:left-45 backdrop-blur-sm rounded-lg border-[1px] z-1000 ${
+              theme === "dark"
+                ? "border-[#ffffff30] bg-white/10"
+                : "border-[#00000030] bg-black/5"
+            }`}
+          >
+            <div className="flex items-center gap-10">
+              {/* logo */}
+              <Link href={"/"}>
+                {language === "en" ? (
+                  <Image
+                    src={
+                      theme === "dark"
+                        ? "/images/logo-dark.webp"
+                        : "/images/logo.webp"
+                    }
+                    width={150}
+                    height={150}
+                    alt="logo"
+                    loading="lazy"
+                  />
+                ) : (
+                  <Image
+                    src={
+                      theme === "dark"
+                        ? "/images/logoAr-dark.webp"
+                        : "/images/logoAr.webp"
+                    }
+                    width={150}
+                    height={150}
+                    alt="logo"
+                    loading="lazy"
+                  />
+                )}
+              </Link>
 
-          {/* Links */}
-          <Navbar scrolled={scrolled} language={language} />
-        </div>
+              {/* Links */}
+              <Navbar scrolled={scrolled} language={language} />
+            </div>
 
-        <div className="flex items-center gap-2 md:gap-5">
-          <LanguageToggle />
-          <ThemeToggle />
-          <Buttons style="hidden sm:flex" href="/contacts">
-            {language === "en" ? "get in touch" : "تواصل معنا"}
-          </Buttons>
-          <button className="flex lg:hidden" onClick={() => setMenu(!menu)}>
-            <GiHamburgerMenu size={30} />
-          </button>
-        </div>
-      </section>
+            <div className="flex items-center gap-2 md:gap-5">
+              <LanguageToggle />
+              <ThemeToggle />
+              <Buttons style="hidden sm:flex" href="/contacts">
+                {language === "en" ? "get in touch" : "تواصل معنا"}
+              </Buttons>
+              {user && <IsAdmin />}
+              <button className="flex lg:hidden" onClick={() => setMenu(!menu)}>
+                <GiHamburgerMenu size={30} />
+              </button>
+            </div>
+          </section>
 
-      <section>
-        {/* Backdrop overlay */}
-        <div
-          onClick={() => setMenu(false)}
-          className={`fixed inset-0 ${
-            theme === "dark"
-              ? "border-[#000] bg-black/100"
-              : "border-[#fff] bg-white/100"
-          } transition-opacity duration-500
+          <section>
+            {/* Backdrop overlay */}
+            <div
+              onClick={() => setMenu(false)}
+              className={`fixed inset-0 ${
+                theme === "dark"
+                  ? "border-[#000] bg-black/100"
+                  : "border-[#fff] bg-white/100"
+              } transition-opacity duration-500
             ${menu ? "opacity-100 visible" : "opacity-0 invisible"}
           `}
-        />
+            />
 
-        <ul
-          className={`
+            <ul
+              className={`
               fixed top-0 h-[100vh] w-full md:w-100 z-2000
               flex flex-col px-10 py-30 gap-5 lg:hidden
               backdrop-blur-sm rounded-lg border-[1px]
@@ -128,64 +134,66 @@ const Header = () => {
                   : "-translate-x-full left-0"
               }
             `}
-        >
-          <button
-            className={`absolute top-5 ${
-              language === "en" ? "left-5" : "right-5"
-            }`}
-            onClick={() => setMenu(!menu)}
-          >
-            <IoClose size={40} />
-          </button>
+            >
+              <button
+                className={`absolute top-5 ${
+                  language === "en" ? "left-5" : "right-5"
+                }`}
+                onClick={() => setMenu(!menu)}
+              >
+                <IoClose size={40} />
+              </button>
 
-          <li className="group border-t-1 border-b-1 py-5">
-            <Link
-              href={"/projects"}
-              onClick={() => setMenu(false)}
-              className="group-hover:text-[hsl(var(--secondary))] text-3xl"
-            >
-              {language === "en" ? "Our Projects" : "أعمالنا"}
-            </Link>
-          </li>
-          <li className="group border-b-1 pb-5">
-            <Link
-              href={"/teams"}
-              onClick={() => setMenu(false)}
-              className="group-hover:text-[hsl(var(--secondary))] text-3xl"
-            >
-              {language === "en" ? "Our Team" : "الفريق"}
-            </Link>
-          </li>
-          <li className="group border-b-1 pb-5">
-            <Link
-              href={isHome ? "#testimonials" : "/#testimonials"}
-              onClick={() => setMenu(false)}
-              className={`group-hover:text-[hsl(var(--secondary))] text-3xl`}
-            >
-              {language === "en" ? "Testimonials" : "قصص النجاح"}
-            </Link>
-          </li>
-          <li className="group border-b-1 pb-5">
-            <Link
-              href={isHome ? "#faqs" : "/#faqs"}
-              onClick={() => setMenu(false)}
-              className={`group-hover:text-[hsl(var(--secondary))] text-3xl`}
-            >
-              {language === "en" ? "FAQs" : "الأسئلة الشائعة"}
-            </Link>
-          </li>
-          <li className="group border-b-1 pb-5">
-            <Link
-              href={"/contacts"}
-              onClick={() => setMenu(false)}
-              className="group-hover:text-[hsl(var(--secondary))] text-3xl"
-            >
-              {language === "en" ? "Contact Us" : "تواصل معنا"}
-            </Link>
-          </li>
-        </ul>
-      </section>
-    </header>
+              <li className="group border-t-1 border-b-1 py-5">
+                <Link
+                  href={"/projects"}
+                  onClick={() => setMenu(false)}
+                  className="group-hover:text-[hsl(var(--secondary))] text-3xl"
+                >
+                  {language === "en" ? "Our Projects" : "أعمالنا"}
+                </Link>
+              </li>
+              <li className="group border-b-1 pb-5">
+                <Link
+                  href={"/teams"}
+                  onClick={() => setMenu(false)}
+                  className="group-hover:text-[hsl(var(--secondary))] text-3xl"
+                >
+                  {language === "en" ? "Our Team" : "الفريق"}
+                </Link>
+              </li>
+              <li className="group border-b-1 pb-5">
+                <Link
+                  href={isHome ? "#testimonials" : "/#testimonials"}
+                  onClick={() => setMenu(false)}
+                  className={`group-hover:text-[hsl(var(--secondary))] text-3xl`}
+                >
+                  {language === "en" ? "Testimonials" : "قصص النجاح"}
+                </Link>
+              </li>
+              <li className="group border-b-1 pb-5">
+                <Link
+                  href={isHome ? "#faqs" : "/#faqs"}
+                  onClick={() => setMenu(false)}
+                  className={`group-hover:text-[hsl(var(--secondary))] text-3xl`}
+                >
+                  {language === "en" ? "FAQs" : "الأسئلة الشائعة"}
+                </Link>
+              </li>
+              <li className="group border-b-1 pb-5">
+                <Link
+                  href={"/contacts"}
+                  onClick={() => setMenu(false)}
+                  className="group-hover:text-[hsl(var(--secondary))] text-3xl"
+                >
+                  {language === "en" ? "Contact Us" : "تواصل معنا"}
+                </Link>
+              </li>
+            </ul>
+          </section>
+        </header>
+      )}
+    </>
   );
 };
 
