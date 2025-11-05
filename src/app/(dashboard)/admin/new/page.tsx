@@ -14,6 +14,7 @@ export default function AddProjectPage() {
   const { language } = useLanguage();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingMultiple, setUploadingMultiple] = useState(false);
   const [formData, setFormData] = useState<Omit<PortfolioItem, "id">>({
     titleEn: "",
     titleAr: "",
@@ -31,7 +32,8 @@ export default function AddProjectPage() {
       industryEn: "",
       industryAr: "",
     },
-    link: '',
+    link: "",
+    images: [],
     processEn: [{ head: "", body: "" }],
     processAr: [{ head: "", body: "" }],
     image: "",
@@ -39,6 +41,7 @@ export default function AddProjectPage() {
 
   const isRTL = language === "ar";
 
+  // رفع الصورة الرئيسية
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -62,7 +65,46 @@ export default function AddProjectPage() {
     }
   };
 
-  // Handle Services Array
+  // رفع متعدد للصور الإضافية
+  const handleMultipleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingMultiple(true);
+    const uploadPromises = Array.from(files).map(uploadImage);
+
+    try {
+      const urls = await Promise.all(uploadPromises);
+      setFormData((prev) => ({
+        ...prev,
+        images: [...prev.images, ...urls],
+      }));
+      toast.success(
+        language === "en"
+          ? `${urls.length} image(s) uploaded successfully!`
+          : `تم رفع ${urls.length} صورة بنجاح!`
+      );
+    } catch (err) {
+      console.error("❌ Error uploading images:", err);
+      toast.error(
+        language === "en" ? "Failed to upload images" : "فشل في رفع الصور"
+      );
+    } finally {
+      setUploadingMultiple(false);
+      // Reset input
+      e.target.value = "";
+    }
+  };
+
+  // حذف صورة من الصور الإضافية
+  const removeImage = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
+  };
+
+  // باقي الدوال كما هي...
   const handleServiceChange = (
     index: number,
     value: string,
@@ -96,7 +138,6 @@ export default function AddProjectPage() {
     }));
   };
 
-  // Handle Process Steps
   const handleProcessChange = (
     index: number,
     field: keyof ProcessStep,
@@ -275,10 +316,10 @@ export default function AddProjectPage() {
           </div>
         </div>
 
-        {/* Image Upload */}
+        {/* Image Upload - الصورة الرئيسية */}
         <div className={isRTL ? "text-right" : "text-left"}>
           <label className="block mb-3 font-semibold text-[hsl(var(--foreground))]">
-            {language === "en" ? "Project Image" : "صورة المشروع"}
+            {language === "en" ? "Project Main Image" : "الصورة الرئيسية للمشروع"}
           </label>
           <div className="border-2 border-dashed border-[hsl(var(--secondary)/30%)] rounded-lg p-6 text-center hover:border-[hsl(var(--secondary))] transition-colors">
             <input
@@ -292,8 +333,8 @@ export default function AddProjectPage() {
               <IoCloudUpload className="w-12 h-12 mx-auto mb-3 text-[hsl(var(--secondary))]" />
               <p className="text-[hsl(var(--foreground))] mb-2">
                 {language === "en"
-                  ? "Click to upload project image"
-                  : "انقر لرفع صورة المشروع"}
+                  ? "Click to upload project main image"
+                  : "انقر لرفع الصورة الرئيسية للمشروع"}
               </p>
               <p className="text-sm text-[hsl(var(--foreground)/50%)]">
                 {language === "en"
@@ -311,7 +352,7 @@ export default function AddProjectPage() {
           {formData.image && (
             <div className="mt-4">
               <p className="text-sm text-[hsl(var(--foreground))] mb-2">
-                {language === "en" ? "Preview:" : "معاينة:"}
+                {language === "en" ? "Main Image Preview:" : "معاينة الصورة الرئيسية:"}
               </p>
               <Image
                 src={formData.image}
@@ -324,6 +365,72 @@ export default function AddProjectPage() {
           )}
         </div>
 
+        {/* Multiple Images Upload - الصور الإضافية */}
+        <div className={isRTL ? "text-right" : "text-left"}>
+          <label className="block mb-3 font-semibold text-[hsl(var(--foreground))]">
+            {language === "en" ? "Additional Project Images" : "الصور الإضافية للمشروع"}
+          </label>
+          <div className="border-2 border-dashed border-[hsl(var(--secondary)/30%)] rounded-lg p-6 text-center hover:border-[hsl(var(--secondary))] transition-colors">
+            <input
+              type="file"
+              onChange={handleMultipleUpload}
+              className="hidden"
+              id="multiple-image-upload"
+              accept="image/*"
+              multiple
+            />
+            <label htmlFor="multiple-image-upload" className="cursor-pointer">
+              <IoCloudUpload className="w-12 h-12 mx-auto mb-3 text-[hsl(var(--secondary))]" />
+              <p className="text-[hsl(var(--foreground))] mb-2">
+                {language === "en"
+                  ? "Click to upload additional images"
+                  : "انقر لرفع صور إضافية"}
+              </p>
+              <p className="text-sm text-[hsl(var(--foreground)/50%)]">
+                {language === "en"
+                  ? "PNG, JPG, WEBP up to 10MB each"
+                  : "PNG, JPG, WEBP حتى 10 ميجابايت لكل صورة"}
+              </p>
+            </label>
+          </div>
+          {uploadingMultiple && (
+            <div className="text-[hsl(var(--primary))] mt-2 flex items-center gap-2">
+              <div className="w-4 h-4 border-2 border-[hsl(var(--primary))] border-t-transparent rounded-full animate-spin"></div>
+              {language === "en" ? "Uploading images..." : "جاري رفع الصور..."}
+            </div>
+          )}
+        </div>
+
+        {/* Preview Additional Images */}
+        {formData.images.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm text-[hsl(var(--foreground))] mb-2">
+              {language === "en" ? "Additional Images Preview:" : "معاينة الصور الإضافية:"}
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {formData.images.map((img, index) => (
+                <div key={index} className="relative group">
+                  <Image
+                    src={img}
+                    alt={`additional-preview-${index}`}
+                    className="w-full h-32 object-cover rounded-lg border border-[hsl(var(--secondary)/30%)]"
+                    width={200}
+                    height={128}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index)}
+                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <IoClose className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* باقي الكود كما هو... */}
         {/* Client Information */}
         <div className="border-t border-[hsl(var(--secondary)/30%)] pt-6">
           <h3 className="text-xl font-semibold text-[hsl(var(--foreground))] mb-4">
@@ -590,7 +697,7 @@ export default function AddProjectPage() {
                       type="button"
                       onClick={() => removeProcessStep(index, "En")}
                       className="rounded-lg text-red-500 cursor-pointer transition-colors"
-                      >
+                    >
                       <IoClose className="w-4 h-4" />
                     </button>
                   )}
@@ -654,7 +761,7 @@ export default function AddProjectPage() {
                       type="button"
                       onClick={() => removeProcessStep(index, "Ar")}
                       className="rounded-lg text-red-500 cursor-pointer transition-colors"
-                      >
+                    >
                       <IoClose className="w-4 h-4" />
                     </button>
                   )}

@@ -23,6 +23,7 @@ export interface PortfolioItem {
   info: ProjectInfo;
   link: string;
   image: string;
+  images: string[];
   articleEn: string;
   articleAr: string;
   processEn: ProcessStep[];

@@ -45,6 +45,7 @@ export default async function SingleProjectPage({ params }: SingleProjectProps) 
       },
       link: data.link || "",
       image: data.image || "",
+      images: data.images || [],
       articleEn: data.articleEn || "",
       articleAr: data.articleAr || "",
       processEn: data.processEn || [],
