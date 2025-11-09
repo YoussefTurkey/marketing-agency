@@ -13,6 +13,17 @@ import ProjectCarousel from "@/app/components/ui/ProjectCarousel";
 // Types
 import type { PortfolioItem } from "@/types/globalTypes";
 
+// Import Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, Thumbs } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/thumbs";
+
 interface SingleProjectClientProps {
   singleProj: PortfolioItem;
 }
@@ -23,6 +34,7 @@ export default function SingleProjectClient({
   const { language } = useLanguage();
   const ref = useRef<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -48,17 +60,26 @@ export default function SingleProjectClient({
 
   // التحقق من وجود الصورة الرئيسية
   const hasImage = singleProj.image && singleProj.image.trim() !== "";
+  
   // التحقق من وجود الصور الإضافية - مع التعامل مع الحالات غير الموجودة
   const hasAdditionalImages = singleProj.images && 
                              Array.isArray(singleProj.images) && 
                              singleProj.images.length > 0 && 
                              singleProj.images.some(img => img && img.trim() !== "");
+  
+  // إنشاء مصفوفة تحتوي على جميع الصور (الرئيسية + الإضافية)
+  const allImages = [
+    singleProj.image,
+    ...(singleProj.images || [])
+  ].filter(img => img && img.trim() !== "");
+
   // التحقق من وجود المقال
   const hasArticle =
     (language === "en"
       ? singleProj.articleEn
       : singleProj.articleAr
     )?.trim() !== "";
+  
   // التحقق من وجود الخدمات
   const hasServices =
     (language === "en"
@@ -88,19 +109,69 @@ export default function SingleProjectClient({
         className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8"
       >
         <div className="lg:col-span-2">
-          {/* الصورة الرئيسية */}
+          {/* Swiper للصور الرئيسية */}
           <div className="flex flex-col gap-5">
-            {hasImage ? (
-              <Image
-                src={singleProj.image}
-                alt={
-                  language === "en" ? singleProj.titleEn : singleProj.titleAr
-                }
-                width={1000}
-                height={600}
-                loading="lazy"
-                className="w-full h-auto rounded-xl shadow-lg"
-              />
+            {allImages.length > 0 ? (
+              <div className="project-swiper-container">
+                {/* Swiper الرئيسي */}
+                <Swiper
+                  modules={[Navigation, Pagination, Autoplay, Thumbs]}
+                  navigation
+                  pagination={{ 
+                    clickable: true,
+                    dynamicBullets: true
+                  }}
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                  }}
+                  thumbs={{ swiper: thumbsSwiper }}
+                  className="main-swiper rounded-xl shadow-lg"
+                >
+                  {allImages.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="relative w-full h-96 md:h-[500px]">
+                        <Image
+                          src={img}
+                          alt={`${language === "en" ? singleProj.titleEn : singleProj.titleAr} - Image ${index + 1}`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          style={{ objectFit: "cover" }}
+                          loading="lazy"
+                          className="rounded-xl"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+
+                {/* Swiper المصغرات (Thumbnails) - يظهر فقط إذا كان هناك أكثر من صورة */}
+                {allImages.length > 1 && (
+                  <Swiper
+                    modules={[Thumbs]}
+                    onSwiper={setThumbsSwiper}
+                    watchSlidesProgress
+                    slidesPerView={4}
+                    spaceBetween={10}
+                    className="thumb-swiper mt-4"
+                  >
+                    {allImages.map((img, index) => (
+                      <SwiperSlide key={index}>
+                        <div className="relative w-full h-20 cursor-pointer opacity-50 transition-opacity hover:opacity-100 rounded-lg overflow-hidden">
+                          <Image
+                            src={img}
+                            alt={`${language === "en" ? singleProj.titleEn : singleProj.titleAr} - Thumbnail ${index + 1}`}
+                            fill
+                            sizes="(max-width: 768px) 25vw, 10vw"
+                            style={{ objectFit: "cover" }}
+                            loading="lazy"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                )}
+              </div>
             ) : (
               <div className="w-full h-64 bg-gray-200 rounded-xl flex items-center justify-center">
                 <span className="text-gray-500 text-lg">
@@ -111,42 +182,9 @@ export default function SingleProjectClient({
               </div>
             )}
           </div>
-
-          {/* الصور الإضافية */}
-          {hasAdditionalImages ? (
-            <div className="flex flex-col gap-5 mt-6">
-              <h3 className="text-xl font-bold">
-                {language === "en" ? "Additional Images" : "صور إضافية"}
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-              {singleProj.images
-                .filter(img => img && img.trim() !== "")
-                .map((img, i) => (
-                  <Image
-                    key={i}
-                    src={img}
-                    alt={`${language === "en" ? singleProj.titleEn : singleProj.titleAr} - Image ${i + 1}`}
-                    width={1000}
-                    height={600}
-                    loading="lazy"
-                    className="w-full h-auto rounded-xl shadow-lg"
-                  />
-                ))
-              }
-              </div>
-            </div>
-          ) : (
-            // يمكنك إضافة رسالة أن لا توجد صور إضافية إذا أردت
-            <div className="mt-6 text-center text-gray-500">
-              {language === "en" 
-                ? "No additional images available" 
-                : "لا توجد صور إضافية متاحة"
-              }
-            </div>
-          )}
         </div>
 
-        {/* باقي الكود بدون تغيير */}
+        {/* تفاصيل المشروع */}
         <div className="bg-[hsl(var(--secondary)/0.1)] p-6 rounded-xl">
           <h3 className="text-xl font-bold mb-4">
             {language === "en" ? "Project Details" : "تفاصيل المشروع"}
@@ -214,7 +252,7 @@ export default function SingleProjectClient({
         </div>
       </motion.div>
 
-      {/* باقي الكود */}
+      {/* المقال */}
       {hasArticle && (
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -231,6 +269,7 @@ export default function SingleProjectClient({
         </motion.div>
       )}
 
+      {/* المشاريع المشابهة */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
